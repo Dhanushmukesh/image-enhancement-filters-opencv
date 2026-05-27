@@ -65,29 +65,58 @@ Display all filtered images using a grid layout for comparison.
 
 ##  Developed By
 
-- **Name:** ____________________________  
-- **Register No:** ______________________  
+- **Name:** Dhanush G
+- **Register No:** 2305002006
 
----
+```python
+#expt-4-edge detection-sobel,laplacian,canny
+import cv2
+import numpy as np
+
+# Load the image
+image = cv2.imread('../Desktop/ex01/parrot.jpg')  # Replace with your image path
+if image is None:
+    raise ValueError("Image not found. Check the file path.")
+
+# Convert to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# ------------------ Sobel Edge Detection ------------------
+# Detect edges in X and Y directions
+sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
+sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
+sobel_combined = cv2.magnitude(sobelx, sobely)
+sobel_combined = cv2.convertScaleAbs(sobel_combined)
+
+# ------------------ Laplacian Edge Detection ------------------
+laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+laplacian = cv2.convertScaleAbs(laplacian)
+
+# ------------------ Canny Edge Detection ------------------
+canny = cv2.Canny(gray, 100, 200)  # Adjust thresholds as needed
+
+# ------------------ Display Results ------------------
+cv2.imshow('Original', image)
+cv2.imshow('Sobel X', cv2.convertScaleAbs(sobelx))
+cv2.imshow('Sobel Y', cv2.convertScaleAbs(sobely))
+cv2.imshow('Sobel Combined', sobel_combined)
+cv2.imshow('Laplacian', laplacian)
+cv2.imshow('Canny', canny)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+```
 
 ##  Output
-
-### Smoothing Filters
-
-- Averaging filter produces blurred image  
-- Weighted averaging provides smoother result with less distortion  
-- Gaussian filter preserves edges better while reducing noise  
-- Median filter removes salt-and-pepper noise effectively  
-
-###  Sharpening Filters
-
-- Laplacian kernel enhances edges and fine details  
-- Laplacian operator detects edges clearly in grayscale  
-
----
+<img width="293" height="308" alt="image" src="https://github.com/user-attachments/assets/3b89a3f1-f63b-4f17-9faa-b4a0a619cbc4" />
+<img width="294" height="308" alt="image" src="https://github.com/user-attachments/assets/5f797646-196e-4c5e-bdd0-46b8ae91180a" />
+<img width="292" height="310" alt="image" src="https://github.com/user-attachments/assets/bddbf185-7207-4db7-8d17-9225ec4c703a" />
+<img width="294" height="308" alt="image" src="https://github.com/user-attachments/assets/61049d16-8b4b-4f8d-8290-a1ca0fc56142" />
+<img width="292" height="308" alt="image" src="https://github.com/user-attachments/assets/1d1319b8-cca2-4f07-a877-fe3beda7dffd" />
+<img width="291" height="308" alt="image" src="https://github.com/user-attachments/assets/d15fa958-f8ce-4372-a317-5ee27a7aa47d" />
 
 ##  Result
-
 Thus, smoothing filters and sharpening filters are successfully implemented using OpenCV.
 
 The smoothing filters reduce noise and improve image quality, while sharpening filters enhance edges and details for better feature extraction.
